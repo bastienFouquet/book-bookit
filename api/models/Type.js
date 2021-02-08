@@ -6,9 +6,8 @@
  */
 
 module.exports = {
-
+  primaryKey: 'id',
   attributes: {
-
     id: {
       type: 'string',
       unique: true,
