@@ -2,9 +2,26 @@ const assert = require('assert');
 const {v4} = require('uuid');
 
 describe('Operations#Model', () => {
+  describe('POST', () => {
+    it('should create operations and check', async () => {
+      const bookId = (await Book.find())[0].id;
+      const typeId = (await Type.find())[0].id;
+      var operation = await Operation.create({
+        id : v4(),
+        book : bookId,
+        type : typeId,
+        quantity : 2
+      }).fetch();
+      assert(operation);
+      assert(operation.id !== null);
+      assert(operation.book === bookId);
+      assert(operation.type === typeId);
+      assert(operation.quantity === 2);
+    });
+  });
   describe('GET', () => {
     it('should get operations and check attributes', async () => {
-      const operations = await Operations.find().limit(1);
+      const operations = await Operation.find().limit(1);
       assert(operations);
       if (operations.length > 0) {
         const operation = operations[0];
@@ -13,24 +30,7 @@ describe('Operations#Model', () => {
         assert(operation.book !== null);
         assert(operation.type !== null);
         assert(operation.quantity !== null);
-        assert(operation.createdAt !== null);
-        assert(operation.updatedAt !== null);
       }
-    });
-  });
-  describe('POST', () => {
-    it('should create operations and check', async () => {
-      var createOp = await Operations.create({
-        id : v4(),
-        book : 'Le seigneur des anneaux',
-        type : 'ajout',
-        quantity : 2
-      }).fetch();
-      assert(createOp);
-      assert(createOp.id !== null);
-      assert(createOp.book === 'Le seigneur des anneaux');
-      assert(createOp.type === 'ajout');
-      assert(createOp.quantity === 2);
     });
   });
 });

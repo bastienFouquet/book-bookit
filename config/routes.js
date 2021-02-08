@@ -41,5 +41,13 @@ module.exports.routes = {
   'POST /books': {
     controller: 'BookController',
     action: 'create'
+  },
+  'PUT /books': {
+    controller: 'BookController',
+    action: 'update'
+  },
+  'DELETE /books/:id': {
+    controller: 'BookController',
+    action: 'delete'
   }
 };

@@ -50,6 +50,40 @@ module.exports = {
       console.error(e);
       return res.serverError(e);
     }
+  },
+  update: async (req, res) => {
+    try {
+      if(req.body.isbn.length === 13){
+        const book = await Book.updateOne({id: req.body.id}).set({
+          title: req.body.title,
+          isbn: req.body.isbn,
+          quantity: req.body.quantity
+        });
+        if(book) {
+          return res.json(book);
+        } else {
+          return res.badRequest('Error while updating book !');
+        }
+      } else {
+        return res.badRequest('ISBN number is not valid !');
+      }
+    } catch (e) {
+      console.error(e);
+      return res.serverError(e);
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const book = Book.destroyOne({id: req.params.id});
+      if(book) {
+        return res.json(book);
+      } else {
+        return res.badRequest('Error while deleting book !');
+      }
+    } catch (e){
+      console.error(e);
+      return res.serverError(e);
+    }
   }
 
 };
