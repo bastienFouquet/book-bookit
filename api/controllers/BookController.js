@@ -1,5 +1,5 @@
 /**
- * BooksController
+ * BookController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -8,8 +8,8 @@
 const v4 = require('uuid');
 module.exports = {
   all: async (req, res) => {
-    try{
-      const books = await Books.find();
+    try {
+      const books = await Book.find();
       return res.json(books);
     } catch (e) {
       console.error(e);
@@ -18,8 +18,8 @@ module.exports = {
   },
   one: async (req, res) => {
     try {
-      const book = await Books.findOne({id: req.params.id}).populateAll();
-      if(book){
+      const book = await Book.findOne({id: req.params.id}).populateAll();
+      if (book) {
         return res.json(book);
       } else {
         return res.badRequest('No match found !');
@@ -30,14 +30,14 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    try{
-      const book = await Books.create({
+    try {
+      const book = await Book.create({
         id: v4(),
         isbn: req.params.isbn,
         title: req.params.title,
         quantity: req.params.quantity
       }).fetch();
-      if(book){
+      if (book) {
         return res.json(book);
       } else {
         return res.badRequest('Error while creating book !');
