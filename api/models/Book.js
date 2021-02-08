@@ -15,6 +15,7 @@ module.exports = {
     },
     isbn: {
       type: 'string',
+      unique: true
     },
     title: {
       type: 'string'

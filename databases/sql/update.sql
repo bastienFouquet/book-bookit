@@ -33,7 +33,7 @@ USE `books`;
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
     `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `isbn` varchar(255) NOT NULL,
+    `isbn` varchar(255) UNIQUE NOT NULL,
     `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `quantity` int NOT NULL,
     `createdAt` datetime DEFAULT NULL,
