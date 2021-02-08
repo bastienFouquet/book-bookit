@@ -1,12 +1,12 @@
 /**
- * Books.js
+ * Book.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
 module.exports = {
-  primaryKey: 'id',
+  tableName: 'books', primaryKey: 'id',
   attributes: {
     id: {
       type: 'string',
@@ -14,7 +14,7 @@ module.exports = {
       required: true
     },
     isbn: {
-      type: 'number',
+      type: 'string',
     },
     title: {
       type: 'string'
@@ -24,14 +24,16 @@ module.exports = {
     },
     createdAt: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+      autoCreatedAt: true
     },
     updatedAt: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+      autoUpdatedAt: true
     },
     operations: {
-      collection: 'operations',
+      collection: 'operation',
       via: 'book'
     }
   },

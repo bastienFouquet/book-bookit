@@ -18,11 +18,13 @@ module.exports = {
     },
     createdAt: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+      autoCreatedAt: true
     },
     updatedAt: {
       type: 'ref',
-      columnType: 'datetime'
+      columnType: 'datetime',
+      autoUpdatedAt: true
     }
 
   },
