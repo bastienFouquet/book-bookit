@@ -14,7 +14,7 @@ module.exports = {
       required: true
     },
     book: {
-      model: 'books',
+      model: 'book',
       columnName: 'bookId'
     },
     type: {

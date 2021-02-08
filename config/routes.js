@@ -33,5 +33,13 @@ module.exports.routes = {
   'GET /books': {
     controller: 'BookController',
     action: 'all'
+  },
+  'GET /books/:id': {
+    controller: 'BookController',
+    action: 'one'
+  },
+  'POST /books': {
+    controller: 'BookController',
+    action: 'create'
   }
 };

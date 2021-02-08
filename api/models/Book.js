@@ -14,7 +14,7 @@ module.exports = {
       required: true
     },
     isbn: {
-      type: 'number',
+      type: 'string',
     },
     title: {
       type: 'string'
@@ -33,7 +33,7 @@ module.exports = {
       autoUpdatedAt: true
     },
     operations: {
-      collection: 'operations',
+      collection: 'operation',
       via: 'book'
     }
   },

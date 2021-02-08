@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const v4 = require('uuid');
+const {v4} = require('uuid');
 module.exports = {
   all: async (req, res) => {
     try {
@@ -33,9 +33,9 @@ module.exports = {
     try {
       const book = await Book.create({
         id: v4(),
-        isbn: req.params.isbn,
-        title: req.params.title,
-        quantity: req.params.quantity
+        isbn: req.body.isbn,
+        title: req.body.title,
+        quantity: req.body.quantity
       }).fetch();
       if (book) {
         return res.json(book);

@@ -33,13 +33,18 @@ USE `books`;
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
     `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `isbn` int NOT NULL,
+    `isbn` varchar(255) NOT NULL,
     `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `quantity` int NOT NULL,
     `createdAt` datetime DEFAULT NULL,
     `updatedAt` datetime DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+--
+-- Index pour la table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
 -- --------------------------------------------------------
 
 --
@@ -55,7 +60,12 @@ CREATE TABLE IF NOT EXISTS `operations` (
     `createdAt` datetime DEFAULT NULL,
     `updatedAt` datetime DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+--
+-- Index pour la table `operations`
+--
+ALTER TABLE `operations`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
 -- --------------------------------------------------------
 
 --
@@ -69,7 +79,12 @@ CREATE TABLE IF NOT EXISTS `type` (
     `createdAt` datetime DEFAULT NULL,
     `updatedAt` datetime DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+--
+-- Index pour la table `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
 --
 -- Déchargement des données de la table `type`
 --
