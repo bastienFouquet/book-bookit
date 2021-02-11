@@ -20,21 +20,40 @@ describe('Books#Model', () => {
   describe('GET', () => {
     it('should get books and check attributes', async () => {
       const books = await Book.find().limit(1);
-      assert(books);
+      let book = null;
       if (books.length > 0) {
-        const book = books[0];
-        assert(book);
-        assert(book.id !== null);
-        assert(book.title !== null);
-        assert(book.quantity !== null);
-        assert(book.isbn !== null);
+        book = books[0];
+      } else {
+        book = await book.create({
+          id: v4(),
+          isbn : '2134567890123',
+          title: 'Harry Potter et le prince de sang mélé',
+          quantity: 1,
+        }).fetch();
       }
+      assert(book);
+      assert(book.id !== null);
+      assert(book.title !== null);
+      assert(book.quantity !== null);
+      assert(book.isbn !== null);
     });
   });
   describe('PUT', () => {
     it('should update a book and check attributes', async () => {
+      const books = await Book.find().limit(1);
+      let book = null;
+      if (books.length > 0) {
+        book = books[0];
+      } else {
+        book = await book.create({
+          id: v4(),
+          isbn : '2134567890123',
+          title: 'Harry Potter et le prince de sang mélé',
+          quantity: 1,
+        }).fetch();
+      }
       const id = (await Book.find())[0].id;
-      const book = await Book.updateOne({id: id}).set({
+      await Book.updateOne({id: id}).set({
         title: 'Harry Potter et les reliques de la mort (updated)',
         quantity: 2,
         isbn: '1234567892323'
@@ -47,8 +66,20 @@ describe('Books#Model', () => {
   });
   describe('DELETE', () => {
     it('should delete a book and check attributes', async () => {
+      const books = await Book.find().limit(1);
+      let book = null;
+      if (books.length > 0) {
+        book = books[0];
+      } else {
+        book = await book.create({
+          id: v4(),
+          isbn : '2134567890123',
+          title: 'Harry Potter et le prince de sang mélé',
+          quantity: 1,
+        }).fetch();
+      }
       const id = (await Book.find())[0].id;
-      const book = await Book.destroyOne({id: id});
+      await Book.destroyOne({id: id});
       assert(book);
     });
   });
