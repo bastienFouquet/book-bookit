@@ -8,6 +8,7 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
+const {swaggerConfig} = require('./swagger');
 module.exports.routes = {
 
   /***************************************************************************
@@ -30,28 +31,178 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
+  /**
+   * BookController
+   */
   'GET /books': {
     controller: 'BookController',
-    action: 'all'
+    action: 'all',
+    swagger: {
+      summary: 'Get all books',
+      responses: swaggerConfig.defaults.responses,
+      security: [{
+        'Connected': []
+      }, {
+        'Admin': []
+      }]
+    }
   },
   'GET /books/:id': {
     controller: 'BookController',
-    action: 'one'
+    action: 'one',
+    swagger: {
+      summary: 'Get a book by id',
+      responses: swaggerConfig.defaults.responses,
+      parameters: [{
+        in: 'path',
+        name: 'id',
+        required: true,
+      }],
+      security: [{
+        'Connected': []
+      }, {
+        'Admin': []
+      }]
+    }
   },
   'POST /books': {
     controller: 'BookController',
-    action: 'create'
+    action: 'create',
+    swagger: {
+      summary: 'Create a book',
+      responses: swaggerConfig.defaults.responses,
+      parameters: [{
+        in: 'body',
+        name: 'body',
+        required: true,
+        schema: {
+          properties: {
+            isbn: {
+              type: 'string',
+              required: true
+            },
+            title: {
+              type: 'string',
+              required: true
+            },
+            quantity: {
+              type: 'number',
+              required: true
+            }
+          }
+        }
+      }],
+      security: [{
+        'Admin': []
+      }]
+    }
   },
-  'PUT /books': {
+  'PUT /books/:id': {
     controller: 'BookController',
-    action: 'update'
+    action: 'update',
+    swagger: {
+      summary: 'Update a book',
+      responses: swaggerConfig.defaults.responses,
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true
+        },
+        {
+          in: 'body',
+          name: 'body',
+          required: true,
+          schema: {
+            properties: {
+              isbn: {
+                type: 'string',
+                required: true
+              },
+              title: {
+                type: 'string',
+                required: true
+              },
+              quantity: {
+                type: 'number',
+                required: true
+              }
+            }
+          }
+        }
+      ],
+      security: [{
+        'Admin': []
+      }]
+    }
   },
   'DELETE /books/:id': {
     controller: 'BookController',
-    action: 'delete'
+    action: 'delete',
+    swagger: {
+      summary: 'Delete a book',
+      responses: swaggerConfig.defaults.responses,
+      parameters: [{
+        in: 'path',
+        name: 'id',
+        required: true
+      }],
+      security: [{
+        'Admin': []
+      }]
+    }
   },
+
+  /**
+   * OperationController
+   */
   'POST /operations': {
     controller: 'OperationController',
-    action: 'create'
+    action: 'create',
+    swagger: {
+      summary: 'Create an operation',
+      responses: swaggerConfig.defaults.responses,
+      parameters: [{
+        in: 'body',
+        name: 'body',
+        required: true,
+        schema: {
+          properties: {
+            book: {
+              type: 'string',
+              required: true
+            },
+            type: {
+              type: 'string',
+              required: true
+            },
+            quantity: {
+              type: 'number',
+              required: true
+            }
+          }
+        }
+      }],
+      security: [{
+        'Admin': []
+      }]
+    }
+  },
+
+  /**
+   * TypeController
+   */
+  'GET /types': {
+    controller: 'TypeController',
+    action: 'all',
+    swagger: {
+      summary: 'Get all operations types',
+      responses: swaggerConfig.defaults.responses,
+      security: [{
+        'Connected': []
+      }, {
+        'Admin': []
+      }]
+    }
   }
 };

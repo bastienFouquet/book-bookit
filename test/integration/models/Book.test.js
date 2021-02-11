@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {v4} = require('uuid');
 
-describe('Books#Model', () => {
+describe('Book#Model', () => {
   describe('POST', () => {
     it('should create a book and check attributes', async () => {
       const book = await Book.create({
@@ -20,11 +20,11 @@ describe('Books#Model', () => {
   describe('GET', () => {
     it('should get books and check attributes', async () => {
       const books = await Book.find().limit(1);
-      let book = null;
+      let book;
       if (books.length > 0) {
         book = books[0];
       } else {
-        book = await book.create({
+        book = await Book.create({
           id: v4(),
           isbn : '2134567890123',
           title: 'Harry Potter et le prince de sang mélé',
@@ -41,7 +41,7 @@ describe('Books#Model', () => {
   describe('PUT', () => {
     it('should update a book and check attributes', async () => {
       const books = await Book.find().limit(1);
-      let book = null;
+      let book;
       if (books.length > 0) {
         book = books[0];
       } else {
@@ -66,11 +66,11 @@ describe('Books#Model', () => {
   describe('DELETE', () => {
     it('should delete a book and check attributes', async () => {
       const books = await Book.find().limit(1);
-      let book = null;
+      let book;
       if (books.length > 0) {
         book = books[0];
       } else {
-        book = await book.create({
+        book = await Book.create({
           id: v4(),
           isbn : '2134567890123',
           title: 'Harry Potter et le prince de sang mélé',

@@ -34,8 +34,14 @@ module.exports = {
       columnType: 'datetime',
       autoUpdatedAt: true
     }
-
   },
-
+  beforeCreate: async function (recordToCreate, proceed) {
+    await sails.helpers.triggerQuantity.with({
+      book: recordToCreate.book,
+      type: recordToCreate.type,
+      quantity: recordToCreate.quantity
+    });
+    proceed();
+  },
 };
 

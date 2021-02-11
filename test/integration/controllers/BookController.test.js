@@ -56,10 +56,9 @@ describe('BookController#Controller', () => {
     it('should update a book', async () => {
       const id = (await Book.find())[0].id;
       supertest(sails.hooks.http.app)
-        .put('/books')
+        .put('/books/' + id)
         .set('Authorization', token)
         .send({
-          id: id,
           isbn: '0987654321987',
           title: 'Harry Potter et la coupe de feu (updated)',
           quantity: 2

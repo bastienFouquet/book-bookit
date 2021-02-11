@@ -9,7 +9,7 @@ const {v4} = require('uuid');
 module.exports = {
   all: async (req, res) => {
     try {
-      const books = await Book.find();
+      const books = await Book.find().populateAll();
       return res.json(books);
     } catch (e) {
       console.error(e);
@@ -31,7 +31,7 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      if(req.body.isbn.length === 13) {
+      if (req.body.isbn.length === 13) {
         const book = await Book.create({
           id: v4(),
           isbn: req.body.isbn,
@@ -53,13 +53,13 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
-      if(req.body.isbn.length === 13){
-        const book = await Book.updateOne({id: req.body.id}).set({
+      if (req.body.isbn.length === 13) {
+        const book = await Book.updateOne({id: req.params.id}).set({
           title: req.body.title,
           isbn: req.body.isbn,
           quantity: req.body.quantity
         });
-        if(book) {
+        if (book) {
           return res.json(book);
         } else {
           return res.badRequest('Error while updating book !');
@@ -74,13 +74,13 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const book = Book.destroyOne({id: req.params.id});
-      if(book) {
+      const book = await Book.destroyOne({id: req.params.id});
+      if (book) {
         return res.json(book);
       } else {
         return res.badRequest('Error while deleting book !');
       }
-    } catch (e){
+    } catch (e) {
       console.error(e);
       return res.serverError(e);
     }

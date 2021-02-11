@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  primaryKey: 'id',
+  tableName: 'type', primaryKey: 'id',
   attributes: {
     id: {
       type: 'string',
@@ -19,12 +19,10 @@ module.exports = {
     createdAt: {
       type: 'ref',
       columnType: 'datetime',
-      autoCreatedAt: true
     },
     updatedAt: {
       type: 'ref',
       columnType: 'datetime',
-      autoUpdatedAt: true
     }
 
   },
