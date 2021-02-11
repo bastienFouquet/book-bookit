@@ -49,5 +49,9 @@ module.exports.routes = {
   'DELETE /books/:id': {
     controller: 'BookController',
     action: 'delete'
+  },
+  'POST /operations': {
+    controller: 'OperationController',
+    action: 'create'
   }
 };

@@ -45,23 +45,22 @@ describe('Books#Model', () => {
       if (books.length > 0) {
         book = books[0];
       } else {
-        book = await book.create({
+        book = await Book.create({
           id: v4(),
           isbn : '2134567890123',
           title: 'Harry Potter et le prince de sang mélé',
           quantity: 1,
         }).fetch();
       }
-      const id = (await Book.find())[0].id;
-      await Book.updateOne({id: id}).set({
+      const updatedBook = await Book.updateOne({id: book.id}).set({
+        isbn: '1234567892323',
         title: 'Harry Potter et les reliques de la mort (updated)',
-        quantity: 2,
-        isbn: '1234567892323'
+        quantity: 2
       });
-      assert(book);
-      assert(book.isbn === '1234567892323');
-      assert(book.title === 'Harry Potter et les reliques de la mort (updated)');
-      assert(book.quantity === 2);
+      assert(updatedBook);
+      assert(updatedBook.isbn === '1234567892323');
+      assert(updatedBook.title === 'Harry Potter et les reliques de la mort (updated)');
+      assert(updatedBook.quantity === 2);
     });
   });
   describe('DELETE', () => {

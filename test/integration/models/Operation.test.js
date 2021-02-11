@@ -1,19 +1,19 @@
 const assert = require('assert');
 const {v4} = require('uuid');
 
-describe('Operations#Model', () => {
+describe('Operation#Model', () => {
   describe('POST', () => {
     it('should create operations and check', async () => {
-      var operation = await Operation.create({
+      const operation = await Operation.create({
         id : v4(),
-        book : '4',
-        type : 'ajout',
+        book : v4(),
+        type : v4(),
         quantity : 2
       }).fetch();
       assert(operation);
       assert(operation.id !== null);
-      assert(operation.book === '4');
-      assert(operation.type === 'ajout');
+      assert(operation.book !== null);
+      assert(operation.type !== null);
       assert(operation.quantity === 2);
     });
   });
@@ -24,10 +24,10 @@ describe('Operations#Model', () => {
       if (operations.length > 0) {
         operation = operations[0];
       } else {
-        operation = await operation.create({
+        operation = await Operation.create({
           id : v4(),
-          book : '4',
-          type : 'ajout',
+          book : v4(),
+          type : v4(),
           quantity : 2
         }).fetch();
       }
@@ -45,23 +45,22 @@ describe('Operations#Model', () => {
       if (operations.length > 0) {
         operation = operations[0];
       } else {
-        operation = await operation.create({
+        operation = await Operation.create({
           id : v4(),
-          book : '4',
-          type : 'ajout',
+          book : v4(),
+          type : v4(),
           quantity : 2
         }).fetch();
       }
-      const id = (await Operation.find())[0].id;
-      await Operation.updateOne({id: id}).set({
-        book: '4',
-        type: 'supprimer',
+      const updatedOperation = await Operation.updateOne({id: operation.id}).set({
+        book: v4(),
+        type: v4(),
         quantity: 3
       });
-      assert(operation);
-      assert(operation.book === '4');
-      assert(operation.type === 'supprimer');
-      assert(operation.quantity === 3);
+      assert(updatedOperation);
+      assert(updatedOperation.book !== null);
+      assert(updatedOperation.type !== null);
+      assert(updatedOperation.quantity === 3);
     });
   });
   describe('DELETE', () => {
@@ -71,15 +70,14 @@ describe('Operations#Model', () => {
       if (operations.length > 0) {
         operation = operations[0];
       } else {
-        operation = await operation.create({
+        operation = await Operation.create({
           id : v4(),
-          book : '4',
-          type : 'ajout',
+          book : v4(),
+          type : v4(),
           quantity : 2
         }).fetch();
       }
-      const id = (await Operation.find())[0].id;
-      await Operation.destroyOne({id: id});
+      await Operation.destroyOne({id: operation.id});
       assert(operation);
     });
   });
