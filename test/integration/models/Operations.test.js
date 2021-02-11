@@ -33,4 +33,25 @@ describe('Operations#Model', () => {
       }
     });
   });
+  describe('PUT', () => {
+    it('should update an operation and check attributes', async () => {
+      const id = (await Book.find())[0].id;
+      const operation = await Book.updateOne({id: id}).set({
+        book: id,
+        type: 3,
+        quantity: 3
+      });
+      assert(operation);
+      assert(operation.book === id);
+      assert(operation.type === 3);
+      assert(operation.quantity === 3);
+    });
+  });
+  describe('DELETE', () => {
+    it('should delete an operation and check attributes', async () => {
+      const id = (await Operation.find())[0].id;
+      const operation = await Operation.destroyOne({id: id});
+      assert(operation);
+    });
+  });
 });
