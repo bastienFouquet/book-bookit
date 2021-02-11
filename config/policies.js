@@ -17,6 +17,17 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': 'isConnected',
+  BookController: {
+    create: 'isAdmin',
+    update: 'isAdmin',
+    delete: 'isAdmin'
+  },
+
+  OperationController: {
+    create: 'isAdmin',
+    update: 'isAdmin',
+    delete: 'isAdmin'
+  }
 
 };

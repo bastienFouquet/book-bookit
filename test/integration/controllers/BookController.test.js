@@ -1,11 +1,14 @@
 const assert = require('assert');
 const supertest = require('supertest');
 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc1MjZlMzAwLTAzYmUtNGYxZC04NWMzLTY3YzM1YTM5OGQxYiIsImxvZ2luIjoiYWRtaW4iLCJyb2xlIjp7ImlkIjoiZDkzNjlmZmItM2M3Mi00OWNkLWIxMGEtMDJmZmIwYTBmZmVjIiwibGFiZWwiOiJBZG1pbiIsImNyZWF0ZWRBdCI6IjIwMjEtMDItMDhUMDg6Mzc6NTcuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjEtMDItMDhUMDg6Mzc6NTcuMDAwWiJ9LCJpYXQiOjE2MTMwNzUwNTh9.VKGfOSAy9CexQGzZx5YyXiZIljnswEeJPB18TsRu3qw';
+
 describe('BookController#Controller', () => {
   describe('#create()',() => {
     it('should create one book', async () => {
       supertest(sails.hooks.http.app)
         .post('/books')
+        .set('Authorization', token)
         .send({
           isbn: '1234567890123',
           title: 'Harry Potter et la chambre des secrets',
@@ -26,6 +29,7 @@ describe('BookController#Controller', () => {
     it('should get all books', async () => {
       supertest(sails.hooks.http.app)
         .get('/books')
+        .set('Authorization', token)
         .expect(200)
         .end((err, res) => {
           assert(!err);
@@ -39,6 +43,7 @@ describe('BookController#Controller', () => {
       const id = (await Book.find())[0].id;
       supertest(sails.hooks.http.app)
         .get('/books/' + id )
+        .set('Authorization', token)
         .expect(200)
         .end((err, res) => {
           assert(!err);
@@ -52,6 +57,7 @@ describe('BookController#Controller', () => {
       const id = (await Book.find())[0].id;
       supertest(sails.hooks.http.app)
         .put('/books')
+        .set('Authorization', token)
         .send({
           id: id,
           isbn: '0987654321987',
@@ -74,6 +80,7 @@ describe('BookController#Controller', () => {
       const id = (await Book.find())[0].id;
       supertest(sails.hooks.http.app)
         .delete('/books/'+ id)
+        .set('Authorization', token)
         .expect(200)
         .end((err, res) => {
           assert(!err);
