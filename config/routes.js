@@ -38,6 +38,7 @@ module.exports.routes = {
     controller: 'BookController',
     action: 'all',
     swagger: {
+      tags: ['Books'],
       summary: 'Get all books',
       responses: swaggerConfig.defaults.responses,
       security: [{
@@ -51,6 +52,7 @@ module.exports.routes = {
     controller: 'BookController',
     action: 'one',
     swagger: {
+      tags: ['Books'],
       summary: 'Get a book by id',
       responses: swaggerConfig.defaults.responses,
       parameters: [{
@@ -69,6 +71,7 @@ module.exports.routes = {
     controller: 'BookController',
     action: 'create',
     swagger: {
+      tags: ['Books'],
       summary: 'Create a book',
       responses: swaggerConfig.defaults.responses,
       parameters: [{
@@ -101,6 +104,7 @@ module.exports.routes = {
     controller: 'BookController',
     action: 'update',
     swagger: {
+      tags: ['Books'],
       summary: 'Update a book',
       responses: swaggerConfig.defaults.responses,
       parameters: [
@@ -140,6 +144,7 @@ module.exports.routes = {
     controller: 'BookController',
     action: 'delete',
     swagger: {
+      tags: ['Books'],
       summary: 'Delete a book',
       responses: swaggerConfig.defaults.responses,
       parameters: [{
@@ -160,6 +165,7 @@ module.exports.routes = {
     controller: 'OperationController',
     action: 'create',
     swagger: {
+      tags: ['Operations'],
       summary: 'Create an operation',
       responses: swaggerConfig.defaults.responses,
       parameters: [{
@@ -196,6 +202,7 @@ module.exports.routes = {
     controller: 'TypeController',
     action: 'all',
     swagger: {
+      tags: ['Types'],
       summary: 'Get all operations types',
       responses: swaggerConfig.defaults.responses,
       security: [{

@@ -31,14 +31,15 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      const operations = await Operation.create({
+      const operation = await Operation.create({
         id: v4(),
         book: req.body.book,
         type: req.body.type,
         quantity: req.body.quantity
       }).fetch();
-      if (operations) {
-        return res.json(operations);
+      operation.type = await Type.findOne({id: operation.type});
+      if (operation) {
+        return res.json(operation);
       } else {
         return res.badRequest('Error while creating operations !');
       }
@@ -54,7 +55,7 @@ module.exports = {
         type: req.body.type,
         quantity: req.body.quantity
       });
-      if(operations) {
+      if (operations) {
         return res.json(operations);
       } else {
         return res.badRequest('Error while updating operations !');
@@ -67,12 +68,12 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const operations = Operation.destroyOne({id: req.params.id});
-      if(operations) {
+      if (operations) {
         return res.json(operations);
       } else {
         return res.badRequest('Error while deleting operations !');
       }
-    } catch (e){
+    } catch (e) {
       console.error(e);
       return res.serverError(e);
     }
