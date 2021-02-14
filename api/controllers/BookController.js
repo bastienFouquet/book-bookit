@@ -10,6 +10,11 @@ module.exports = {
   all: async (req, res) => {
     try {
       const books = await Book.find().populateAll();
+      for (const book of books) {
+        for (const operation of book.operations) {
+          operation.type = await Type.findOne({id: operation.type});
+        }
+      }
       return res.json(books);
     } catch (e) {
       console.error(e);
@@ -19,6 +24,9 @@ module.exports = {
   one: async (req, res) => {
     try {
       const book = await Book.findOne({id: req.params.id}).populateAll();
+      for (const operation of book.operations) {
+        operation.type = await Type.findOne({id: operation.type});
+      }
       if (book) {
         return res.json(book);
       } else {
