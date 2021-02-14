@@ -6,13 +6,13 @@ describe('Book#Model', () => {
     it('should create a book and check attributes', async () => {
       const book = await Book.create({
         id: v4(),
-        isbn : '2134567890123',
+        isbn: Math.random().toString().slice(2, 15),
         title: 'Harry Potter et le prince de sang mélé',
         quantity: 1,
       }).fetch();
       assert(book);
       assert(book.id !== null);
-      assert(book.isbn === '2134567890123');
+      assert(book.isbn !== null);
       assert(book.title === 'Harry Potter et le prince de sang mélé');
       assert(book.quantity === 1);
     });
@@ -20,66 +20,41 @@ describe('Book#Model', () => {
   describe('GET', () => {
     it('should get books and check attributes', async () => {
       const books = await Book.find().limit(1);
-      let book;
-      if (books.length > 0) {
-        book = books[0];
-      } else {
-        book = await Book.create({
-          id: v4(),
-          isbn : '2134567890123',
-          title: 'Harry Potter et le prince de sang mélé',
-          quantity: 1,
-        }).fetch();
+      if (books.length) {
+        const book = books[0];
+        assert(book);
+        assert(book.id !== null);
+        assert(book.title !== null);
+        assert(book.quantity !== null);
+        assert(book.isbn !== null);
       }
-      assert(book);
-      assert(book.id !== null);
-      assert(book.title !== null);
-      assert(book.quantity !== null);
-      assert(book.isbn !== null);
     });
   });
   describe('PUT', () => {
     it('should update a book and check attributes', async () => {
       const books = await Book.find().limit(1);
-      let book;
       if (books.length > 0) {
-        book = books[0];
-      } else {
-        book = await Book.create({
-          id: v4(),
-          isbn : '2134567890123',
-          title: 'Harry Potter et le prince de sang mélé',
-          quantity: 1,
-        }).fetch();
+        const book = books[0];
+        const updatedBook = await Book.updateOne({id: book.id}).set({
+          isbn: Math.random().toString().slice(2, 15),
+          title: 'Harry Potter et les reliques de la mort (updated)',
+          quantity: 2
+        });
+        assert(updatedBook);
+        assert(updatedBook.isbn !== null);
+        assert(updatedBook.title === 'Harry Potter et les reliques de la mort (updated)');
+        assert(updatedBook.quantity === 2);
       }
-      const updatedBook = await Book.updateOne({id: book.id}).set({
-        isbn: '1234567892323',
-        title: 'Harry Potter et les reliques de la mort (updated)',
-        quantity: 2
-      });
-      assert(updatedBook);
-      assert(updatedBook.isbn === '1234567892323');
-      assert(updatedBook.title === 'Harry Potter et les reliques de la mort (updated)');
-      assert(updatedBook.quantity === 2);
     });
   });
   describe('DELETE', () => {
     it('should delete a book and check attributes', async () => {
-      const books = await Book.find().limit(1);
-      let book;
+      const books = await Book.find();
       if (books.length > 0) {
-        book = books[0];
-      } else {
-        book = await Book.create({
-          id: v4(),
-          isbn : '2134567890123',
-          title: 'Harry Potter et le prince de sang mélé',
-          quantity: 1,
-        }).fetch();
+        const id = books[0].id;
+        const bookDeleted = await Book.destroyOne({id: id});
+        assert(bookDeleted);
       }
-      const id = (await Book.find())[0].id;
-      await Book.destroyOne({id: id});
-      assert(book);
     });
   });
 });

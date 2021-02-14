@@ -7,13 +7,20 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc1MjZlMzAwLTAzYmUt
 describe('OperationController#Controller', () => {
   describe('#create()',() => {
     it('should create one operation', async () => {
+      const book = await Book.create({
+        id: v4(),
+        isbn: Math.random().toString().slice(2, 15),
+        title: 'TEST',
+        quantity: 46
+      }).fetch();
+      const type = (await Type.find({value: 'Entrée'}))[0];
       supertest(sails.hooks.http.app)
         .post('/operations')
         .set('Authorization', token)
         .send({
           id : v4(),
-          book : v4(),
-          type : v4(),
+          book : book.id,
+          type : type.id,
           quantity : 2
         })
         .expect(200)

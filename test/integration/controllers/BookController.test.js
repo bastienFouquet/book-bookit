@@ -10,7 +10,7 @@ describe('BookController#Controller', () => {
         .post('/books')
         .set('Authorization', token)
         .send({
-          isbn: '1234567890123',
+          isbn: Math.random().toString().slice(2, 15),
           title: 'Harry Potter et la chambre des secrets',
           quantity: 1
         })
@@ -19,7 +19,7 @@ describe('BookController#Controller', () => {
           assert(!err);
           assert(res);
           assert(res.body);
-          assert(res.body.isbn === '1234567890123');
+          assert(res.body.isbn !== null);
           assert(res.body.title === 'Harry Potter et la chambre des secrets');
           assert(res.body.quantity === 1);
         });
@@ -59,7 +59,7 @@ describe('BookController#Controller', () => {
         .put('/books/' + id)
         .set('Authorization', token)
         .send({
-          isbn: '0987654321987',
+          isbn: Math.random().toString().slice(2, 15),
           title: 'Harry Potter et la coupe de feu (updated)',
           quantity: 2
         })
@@ -68,7 +68,7 @@ describe('BookController#Controller', () => {
           assert(!err);
           assert(res);
           assert(res.body);
-          assert(res.body.isbn === '0987654321987');
+          assert(res.body.isbn !== null);
           assert(res.body.title === 'Harry Potter et la coupe de feu (updated)');
           assert(res.body.quantity === 2);
         });
