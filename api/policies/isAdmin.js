@@ -13,7 +13,7 @@ module.exports = async function (req, res, next) {
         return next();
       }
     }
-    return res.status(401);
+    return res.sendStatus(401);
   }
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
